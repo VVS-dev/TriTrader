@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TriTrader OG Image v2 (1200×630)</title>
+<!--
+  HOW TO TURN THIS INTO og-image-v2.png
+  1. Open this file in Chrome.
+  2. Open DevTools (Cmd+Opt+I) → Cmd+Shift+P →
+     type "Capture node screenshot" → click it with the .og element selected.
+  3. Save the result as  og-image-v2.png  in this  code/  folder.
+  The card below is exactly 1200x630px.
+-->
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #2a2a2a; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif; }
+    .og {
+        width: 1200px; height: 500px;
+        position: relative; overflow: hidden;
+        background:
+            radial-gradient(ellipse at 75% 15%, rgba(0,230,168,0.18) 0%, transparent 45%),
+            radial-gradient(ellipse at 15% 90%, rgba(0,120,220,0.10) 0%, transparent 50%),
+            #060910;
+        color: #f4f7fb;
+        display: flex; flex-direction: column; justify-content: center;
+        padding: 80px 90px;
+    }
+    /* faux candlestick strip across the bottom */
+    .candles { position: absolute; bottom: 0; left: 0; right: 0; height: 220px; display: flex; align-items: flex-end; gap: 14px; padding: 0 40px 40px; opacity: 0.5; }
+    .candle { width: 16px; border-radius: 2px; }
+    .wick { width: 2px; margin: 0 auto; }
+    .badge {
+        display: inline-flex; align-items: center; gap: 10px;
+        background: rgba(0,230,168,0.12); border: 1px solid rgba(0,230,168,0.35);
+        color: #00e6a8; font-size: 20px; font-weight: 600; letter-spacing: 1px;
+        text-transform: uppercase; padding: 10px 22px; border-radius: 100px;
+        width: fit-content; margin-bottom: 34px; position: relative; z-index: 2;
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: #00e6a8; }
+    h1 { font-size: 76px; font-weight: 800; line-height: 1.04; letter-spacing: -2px; position: relative; z-index: 2; }
+    h1 .hl { background: linear-gradient(135deg, #00e6a8, #2dd4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    /* grey sub copy: two lines, centered, shifted right to clear the
+       bottom-left profile avatar when used as a banner */
+    p.sub {
+        font-size: 27px; color: #9aa7ba; margin-top: 28px;
+        margin-left: 300px; max-width: 720px; text-align: center; line-height: 1.4;
+        position: relative; z-index: 2;
+    }
+    /* brand lowered to sit just above the big headline */
+    .brand { position: absolute; top: 55px; right: 90px; display: flex; align-items: center; gap: 12px; font-size: 34px; font-weight: 800; letter-spacing: -0.5px; z-index: 2; }
+    .brand .pulse { width: 12px; height: 12px; border-radius: 50%; background: #00e6a8; box-shadow: 0 0 16px rgba(0,230,168,0.9); }
+    .brand .g { color: #00e6a8; }
+</style>
+</head>
+<body>
+<div class="og">
+    <div class="brand"><span class="pulse"></span>Tri<span class="g">Trader</span></div>
+    <div class="candles" id="candles"></div>
+    <h1>One week. Every market.<br><span class="hl">Compete for the leaderboard.</span></h1>
+    <p class="sub">Skill-based trading competitions on real-time data. Top 15% share a prize pool funded by entry fees. Join the waitlist.</p>
+</div>
+<script>
+    // generate a row of green/red candles for texture
+    const c = document.getElementById('candles');
+    const GREEN = '#00e6a8', RED = '#ff4d6d';
+    for (let i = 0; i < 60; i++) {
+        const up = Math.random() > 0.45;
+        const col = up ? GREEN : RED;
+        const h = 30 + Math.random() * 150;
+        const wickH = h + 20 + Math.random() * 40;
+        const wrap = document.createElement('div');
+        wrap.style.display = 'flex'; wrap.style.flexDirection = 'column'; wrap.style.alignItems = 'center'; wrap.style.justifyContent = 'flex-end'; wrap.style.height = '180px';
+        const wick = document.createElement('div'); wick.className = 'wick'; wick.style.height = wickH + 'px'; wick.style.background = col; wick.style.opacity = '0.7'; wick.style.marginBottom = '-' + (wickH - h/2) + 'px';
+        const body = document.createElement('div'); body.className = 'candle'; body.style.height = h + 'px'; body.style.background = col;
+        wrap.appendChild(wick); wrap.appendChild(body); c.appendChild(wrap);
+    }
+</script>
+</body>
+</html>

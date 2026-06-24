@@ -44,7 +44,7 @@
         {"@type":"Question","name":"Is TriTrader gambling?","acceptedAnswer":{"@type":"Answer","text":"TriTrader is a skill-based competition: your result comes entirely from your trading decisions on live market data, not chance. Trades are simulated against real-time prices."}},
         {"@type":"Question","name":"How do I know TriTrader is legit?","acceptedAnswer":{"@type":"Answer","text":"The prize pool is funded by entry fees and the full payout structure is published upfront — nothing is hidden. TriTrader is UK-based."}},
         {"@type":"Question","name":"Where does the prize money come from?","acceptedAnswer":{"@type":"Answer","text":"Entirely from entry fees, like a poker tournament. Around 45% of every entry flows straight back to players through the prize pool and bounties."}},
-        {"@type":"Question","name":"What happens if I don't win?","acceptedAnswer":{"@type":"Answer","text":"You only ever risk your entry fee, because every trade is simulated. The top 15% of the field cash out, with a minimum of 1.1x your entry. The rest walk away with nothing beyond the entry fee they paid."}},
+        {"@type":"Question","name":"What happens if I don't win?","acceptedAnswer":{"@type":"Answer","text":"You only ever risk your entry fee, because every trade is simulated. The top 15% of the field cash out, with a minimum of 1.1x your entry. The rest walk away with sharper instincts — but no money beyond the entry fee they paid."}},
         {"@type":"Question","name":"How is this different from a prop firm challenge?","acceptedAnswer":{"@type":"Answer","text":"No rules to follow and no evaluation. One week instead of months, real prize money instead of a funded account, and it rewards pure performance."}},
         {"@type":"Question","name":"What can I trade?","acceptedAnswer":{"@type":"Answer","text":"Forex, indices, commodities, crypto and stocks — all in one competition, priced on real-time data."}},
         {"@type":"Question","name":"What does joining the waitlist do?","acceptedAnswer":{"@type":"Answer","text":"It gets you early access. There is no payment now; we will notify you before the first competition opens."}}
@@ -139,8 +139,9 @@
             margin: 0 auto;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: flex-end;
             height: 64px;
+            position: relative;
         }
         .logo {
             font-size: 1.4rem;
@@ -149,6 +150,9 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
         }
         .logo span { color: var(--accent); }
         .logo .pulse {
@@ -606,6 +610,75 @@
         }
         .tier-cta:hover, .tier-card.popular .tier-cta { background: var(--accent); color: var(--bg-dark); }
 
+        /* --- STAKE-LEVEL SLIDER --- */
+        .stake-slider {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem 1.75rem 1.25rem;
+            margin-bottom: 0.5rem;
+            max-width: 520px;
+        }
+        .stake-slider-head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        .stake-slider-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+        }
+        .stake-slider-value {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+        .stake-slider input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 100px;
+            background: var(--border);
+            outline: none;
+            cursor: pointer;
+        }
+        .stake-slider input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--bg-card);
+            box-shadow: 0 0 0 1px var(--accent), 0 0 16px rgba(0, 230, 168, 0.5);
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+        .stake-slider input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.12); }
+        .stake-slider input[type="range"]::-moz-range-thumb {
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--bg-card);
+            box-shadow: 0 0 0 1px var(--accent), 0 0 16px rgba(0, 230, 168, 0.5);
+            cursor: pointer;
+        }
+        .stake-slider-ticks {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.7rem;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+        .stake-slider-ticks span { flex: 1; text-align: center; }
+        .stake-slider-ticks span:first-child { text-align: left; }
+        .stake-slider-ticks span:last-child { text-align: right; }
+
         /* --- PAYOUT TABLE --- */
         .payout-table-wrapper {
             background: var(--bg-card);
@@ -657,11 +730,14 @@
 
         /* --- BOUNTIES --- */
         .bounties-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 1.25rem;
         }
         .bounty-card {
+            flex: 1 1 290px;
+            max-width: 360px;
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 12px;
@@ -725,7 +801,7 @@
         .final-cta .hero-cta:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 0 45px rgba(0, 230, 168, 0.4); }
 
         /* --- FAQ --- */
-        .faq-list { max-width: 820px; }
+        .faq-list { max-width: none; }
         .faq-item {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -808,6 +884,42 @@
         .cookie-btn.accept { background: var(--accent); color: var(--bg-dark); border-color: var(--accent); }
         .cookie-btn.accept:hover { background: var(--accent-hover); }
 
+        /* --- WAITLIST MODAL --- */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1100;
+            background: rgba(6, 9, 16, 0.78);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+        .modal-overlay.open { display: flex; animation: fadeUp 0.25s ease both; }
+        .modal-overlay .modal-card {
+            position: relative;
+            width: 100%;
+            max-width: 440px;
+            margin: auto;
+            animation: popIn 0.32s ease both;
+        }
+        .modal-close {
+            position: absolute;
+            top: 0.85rem; right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.8rem;
+            line-height: 1;
+            cursor: pointer;
+            padding: 0.2rem 0.5rem;
+            transition: color 0.2s;
+        }
+        .modal-close:hover { color: var(--text-primary); }
+
         /* --- RESPONSIVE --- */
         @media (max-width: 920px) {
             .hero { grid-template-columns: 1fr; gap: 2.5rem; padding-top: 6rem; }
@@ -857,8 +969,8 @@
 <!-- NAV -->
 <nav>
     <div class="nav-inner">
-        <div class="logo"><span class="pulse"></span>Tri<span>Trader</span></div>
-        <a href="#register" class="nav-cta">Reserve Your Spot</a>
+        <div class="logo">Tri<span class="pulse"></span><span>Trader</span></div>
+        <a href="#register" class="nav-cta" onclick="openWaitlistModal(); return false;">Reserve Your Spot</a>
     </div>
 </nav>
 
@@ -866,17 +978,17 @@
 <section class="hero">
     <div class="hero-left">
         <div class="badge"><span class="dot"></span>Pre-Registration Now Open</div>
-        <h1>Trade on Real-Time Data.<br><span class="highlight">Compete for the Leaderboard.</span></h1>
-        <p>Like the WSOP, but for trading. Pay one fixed entry fee, compete head-to-head for a week across every major market — and that fee is the most you can ever lose, because every trade is simulated. The prize pool is funded entirely by entry fees.</p>
+        <h1>Trade Every Market.<br><span class="highlight">Compete for the Prize Pool.</span></h1>        <p>Like the WSOP, but for trading. Pay one fixed entry fee, and trade for a week in any major market. Top 15% of traders share the prize pool.</p>
         <ul class="hero-points">
-            <li><span class="tick">✓</span> Trade forex, indices, commodities, crypto & stocks in one competition</li>
-            <li><span class="tick">✓</span> Top 15% of the field cash out — minimum 1.5× their entry. Everyone else walks away with nothing</li>
-            <li><span class="tick">✓</span> Climb the live leaderboard for a share of the prize pool — plus bounties for the week's sharpest trades</li>
+            <li><span class="tick">✓</span> <span><strong>Every market, one competition.</strong> Forex, indices, commodities, crypto &amp; stocks.</span></li>
+            <li><span class="tick">✓</span> <span><strong>Pure skill, level start.</strong> Everyone starts equal — top 15% by PnL get paid.</span></li>
+            <li><span class="tick">✓</span> <span><strong>Risk only your entry.</strong> Every trade is simulated — that fee is your max loss.</span></li>
         </ul>
         <div class="hero-stats">
             <div class="hero-stat"><div class="num">5</div><div class="label">Asset Classes</div></div>
             <div class="hero-stat"><div class="num">15%</div><div class="label">Of Players Paid</div></div>
-            <div class="hero-stat"><div class="num" id="hero-top-prize">£20k</div><div class="label">Top Prize</div></div>
+            <div class="hero-stat"><div class="num">250</div><div class="label">Tournament Participants</div></div>
+            <div class="hero-stat"><div class="num" id="hero-top-prize">£20k</div><div class="label">1st Place Prize</div></div>
         </div>
     </div>
 
@@ -921,9 +1033,9 @@
             <div class="share-block">
                 <p class="share-title">Know other traders who'd want in? Send them your invite.</p>
                 <div class="share-buttons">
-                    <button type="button" class="share-btn x" onclick="shareReferral('x')">Share on X</button>
-                    <button type="button" class="share-btn wa" onclick="shareReferral('whatsapp')">WhatsApp</button>
-                    <button type="button" class="share-btn copy" id="copy-link-btn" onclick="shareReferral('copy')">Copy link</button>
+                    <button type="button" class="share-btn x" onclick="shareReferral('x', this)">Share on X</button>
+                    <button type="button" class="share-btn wa" onclick="shareReferral('whatsapp', this)">WhatsApp</button>
+                    <button type="button" class="share-btn copy" id="copy-link-btn" onclick="shareReferral('copy', this)">Copy link</button>
                 </div>
             </div>
         </div>
@@ -932,17 +1044,59 @@
     </div>
 </section>
 
+<!-- TIERS -->
+<section class="block reveal" id="tiers">
+    <div class="section-label">Stakes Tiers</div>
+    <h2 class="section-title">Choose your level</h2>
+    <p class="section-subtitle">There's a tier for every trader, what's yours? The bigger the buy-in, the bigger the prizes up for grabs — pick the stakes that suit you and lock your choice into the form above.</p>
+    <div class="tiers-grid" id="tiers-grid">
+        <div class="tier-card" data-tier="contender">
+            <div class="tier-name">Contender</div>
+            <div class="tier-price" data-tier-price="contender">£100</div>
+            <div class="tier-price-label">entry fee</div>
+            <div class="tier-top-prize"><span class="tier-tp-label">Top prize</span><span class="tier-tp-amount">£2,000</span></div>
+            <p class="tier-tagline">The lowest buy-in — a low-risk way to test your edge and learn the format in your first competition.</p>
+            <ul class="tier-features"><li>Lowest cost to enter</li><li>Most beginner-friendly</li><li>Smallest amount at risk</li></ul>
+            <button class="tier-cta" onclick="selectTier('contender')">Select Tier</button>
+        </div>
+        <div class="tier-card popular" data-tier="elite">
+            <div class="tier-name">Elite</div>
+            <div class="tier-price" data-tier-price="elite">£300</div>
+            <div class="tier-price-label">entry fee</div>
+            <div class="tier-top-prize"><span class="tier-tp-label">Top prize</span><span class="tier-tp-amount">£6,000</span></div>
+            <p class="tier-tagline">The all-rounder's sweet spot — triple the Contender prizes for a mid-range buy-in.</p>
+            <ul class="tier-features"><li>3× larger prize pool than Contender</li><li>Balanced risk and reward</li><li>Most popular tier</li></ul>
+            <button class="tier-cta" onclick="selectTier('elite')">Select Tier</button>
+        </div>
+        <div class="tier-card" data-tier="champion">
+            <div class="tier-name">Champion</div>
+            <div class="tier-price" data-tier-price="champion">£1,000</div>
+            <div class="tier-price-label">entry fee</div>
+            <div class="tier-top-prize"><span class="tier-tp-label">Top prize</span><span class="tier-tp-amount">£20,000</span></div>
+            <p class="tier-tagline">Serious money for high-conviction traders — the biggest buy-in and a five-figure top prize.</p>
+            <ul class="tier-features"><li>Biggest prize pool</li><li>Highest stakes, highest reward</li><li>Best suited to experienced traders</li></ul>
+            <button class="tier-cta" onclick="selectTier('champion')">Select Tier</button>
+        </div>
+    </div>
+    <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1.5rem; text-align: center;">Top-prize figures are illustrative and grow with the size of the field. Every tier uses the same WSOP-style payout structure.</p>
+</section>
+
 <!-- PAYOUT TABLE -->
 <section class="block reveal">
     <div class="section-label">Prize Structure</div>
     <h2 class="section-title">Win up to <span style="color: var(--accent);" id="payout-title-prize">£20,000</span> from one entry</h2>
-    <p class="section-subtitle">WSOP-style banding: finish in the top 15% and every paid place returns at least 1.5× your entry — no one who cashes goes home a loser. The other 85% walk away with nothing.</p>
 
-    <div class="prize-callout">
-        <div class="prize-callout-num">45%</div>
-        <div class="prize-callout-text">
-            <strong>of every entry goes straight back to players.</strong>
-            Almost half of all revenue funds the prize pool and bounties — far more than a typical buy-in tournament. The house keeps the lights on; the players keep the winnings.
+    <!-- STAKE-LEVEL SLIDER — preview each entry-fee level; the whole page reflows -->
+    <div class="stake-slider" id="stake-slider">
+        <div class="stake-slider-head">
+            <span class="stake-slider-label">Adjust the entry fee</span>
+            <span class="stake-slider-value" id="stake-slider-value">£1,000</span>
+        </div>
+        <input type="range" id="stake-range" min="0" max="2" step="1" value="2" aria-label="Entry fee tier">
+        <div class="stake-slider-ticks">
+            <span data-idx="0">£100</span>
+            <span data-idx="1">£300</span>
+            <span data-idx="2">£1,000</span>
         </div>
     </div>
 
@@ -960,14 +1114,13 @@
             </tbody>
         </table>
     </div>
-    <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1rem;" id="payout-note">Figures shown are for the £1,000 Champion tier in a 250-trader Arena (top 38 paid). Every tier uses the same multiples — your prizes scale with the entry fee you pick.</p>
 </section>
 
 <!-- BOUNTIES -->
 <section class="block reveal">
     <div class="section-label">Bonus Prizes</div>
     <h2 class="section-title">The leaderboard isn't the only way to win</h2>
-    <p class="section-subtitle">On top of the main prizes, a separate bounty pool pays out for the smartest moves of the week — rewarding skill the leaderboard alone misses. You can win a bounty <em>and</em> a leaderboard prize. Example amounts assume a £500 entry fee.</p>
+    <p class="section-subtitle">On top of the main prizes, a separate bounty pool pays out for the smartest moves of the week — rewarding skill. You can win a bounty <em>and</em> a leaderboard prize.</p>
     <div class="bounties-grid">
         <div class="bounty-card">
             <div class="bounty-icon">🎯</div>
@@ -989,23 +1142,15 @@
             <div class="bounty-icon">📈</div>
             <div>
                 <h4>Best Comeback</h4>
-                <p>Climb the rankings fastest and get paid <strong>every single day</strong> — plus a big weekly prize for the biggest seven-day surge. Momentum is money.</p>
-                <span class="bounty-prize">£300 daily × 7 + £600 weekly</span>
+                <p>Make the <strong>biggest jump up the rankings in a single day</strong> and the prize is yours. Up for grabs every day of the week — momentum is money.</p>
+                <span class="bounty-prize">£300 daily</span>
             </div>
         </div>
         <div class="bounty-card">
             <div class="bounty-icon">⚡</div>
             <div>
                 <h4>Most Active</h4>
-                <p>Put in the most trades and still finish in profit. Pure hustle, rewarded — for the traders who never stop hunting an edge.</p>
-                <span class="bounty-prize">Up to £400</span>
-            </div>
-        </div>
-        <div class="bounty-card">
-            <div class="bounty-icon">🔄</div>
-            <div>
-                <h4>Biggest Recovery</h4>
-                <p>Dropped into the bottom 10% and clawed your way back to profit? That kind of grit gets its own prize — never count yourself out.</p>
+                <p>Place the <strong>most trades</strong> across the week, full stop. Whatever your finish, the busiest trader on the board gets paid.</p>
                 <span class="bounty-prize">Up to £400</span>
             </div>
         </div>
@@ -1013,48 +1158,12 @@
             <div class="bounty-icon">🏅</div>
             <div>
                 <h4>Best Risk Control</h4>
-                <p>Reserved exclusively for traders who don't cash on the main board — protect your capital better than anyone else and still walk away with cash in hand.</p>
+                <p>For the trader who <strong>never bet the farm</strong> — the tightest position sizing and lowest risk per trade. Discipline pays, even off the podium.</p>
                 <span class="bounty-prize">Up to £400</span>
             </div>
         </div>
     </div>
-</section>
-
-<!-- TIERS -->
-<section class="block reveal" id="tiers">
-    <div class="section-label">Stakes Tiers</div>
-    <h2 class="section-title">Choose your level</h2>
-    <p class="section-subtitle">From first-timers to full-time professionals, there's a tier for every trader. The bigger the buy-in, the bigger the prizes up for grabs — pick the stakes that suit you and lock your choice into the form above.</p>
-    <div class="tiers-grid" id="tiers-grid">
-        <div class="tier-card" data-tier="contender">
-            <div class="tier-name">Contender</div>
-            <div class="tier-price" data-tier-price="contender">£100</div>
-            <div class="tier-price-label">entry fee</div>
-            <div class="tier-top-prize"><span class="tier-tp-label">Top prize</span><span class="tier-tp-amount">£2,000</span></div>
-            <p class="tier-tagline">The lowest buy-in and the biggest, most active field — perfect for your first competition.</p>
-            <ul class="tier-features"><li>Largest player field</li><li>Most beginner-friendly</li><li>Lowest cost to enter</li></ul>
-            <button class="tier-cta" onclick="selectTier('contender')">Select Tier</button>
-        </div>
-        <div class="tier-card popular" data-tier="elite">
-            <div class="tier-name">Elite</div>
-            <div class="tier-price" data-tier-price="elite">£300</div>
-            <div class="tier-price-label">entry fee</div>
-            <div class="tier-top-prize"><span class="tier-tp-label">Top prize</span><span class="tier-tp-amount">£6,000</span></div>
-            <p class="tier-tagline">The all-rounder's sweet spot — 3× the Contender prizes, with a smaller field and better odds to cash.</p>
-            <ul class="tier-features"><li>3× larger prize pool</li><li>Better odds to cash</li><li>Most popular tier</li></ul>
-            <button class="tier-cta" onclick="selectTier('elite')">Select Tier</button>
-        </div>
-        <div class="tier-card" data-tier="champion">
-            <div class="tier-name">Champion</div>
-            <div class="tier-price" data-tier-price="champion">£1,000</div>
-            <div class="tier-price-label">entry fee</div>
-            <div class="tier-top-prize"><span class="tier-tp-label">Top prize</span><span class="tier-tp-amount">£20,000</span></div>
-            <p class="tier-tagline">Serious money for seasoned, high-conviction traders — a five-figure top prize in a sharper field.</p>
-            <ul class="tier-features"><li>Five-figure top prize</li><li>Smaller, sharper field</li><li>For experienced traders</li></ul>
-            <button class="tier-cta" onclick="selectTier('champion')">Select Tier</button>
-        </div>
-    </div>
-    <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1.5rem; text-align: center;">Top-prize figures are illustrative and grow with the size of the field. Every tier uses the same WSOP-style payout structure.</p>
+    <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1.5rem; text-align: center;">Example amounts assume a £500 entry fee.</p>
 </section>
 
 <!-- HOW IT WORKS -->
@@ -1066,7 +1175,7 @@
         <div class="step">
             <div class="step-num">1</div>
             <h3>Pick Your Tier</h3>
-            <p>Choose from three entry levels — from £100 Contender to £1,000 Champion. Higher stakes, bigger pools.</p>
+            <p>Choose from three entry levels. Higher stakes = bigger prizes.</p>
         </div>
         <div class="step">
             <div class="step-num">2</div>
@@ -1081,23 +1190,8 @@
         <div class="step">
             <div class="step-num">4</div>
             <h3>Collect Winnings</h3>
-            <p>Finish in the top 15% to cash — a minimum of 1.5× your entry. The other 85% walk away empty-handed. Winners paid out in minutes.</p>
+            <p>Finish in the top 15% to cash. The other 85% walk away with sharper instincts — but no money.</p>
         </div>
-    </div>
-</section>
-
-<!-- FEATURES -->
-<section class="block reveal">
-    <div class="section-label">Why TriTrader</div>
-    <h2 class="section-title">Built for real traders</h2>
-    <p class="section-subtitle">Everything you need to prove your trading skill against a competitive field.</p>
-    <div class="features-grid">
-        <div class="feature"><div class="feature-icon">📊</div><h3>Multi-Asset Trading</h3><p>Forex, indices, commodities, crypto, and stocks — all in one competition. Trade what you know best.</p></div>
-        <div class="feature"><div class="feature-icon">⚡</div><h3>Real-Time Pricing</h3><p>Every trade is priced against live market feeds. Your portfolio tracks real movement, tick by tick.</p></div>
-        <div class="feature"><div class="feature-icon">🏆</div><h3>WSOP-Style Payouts</h3><p>Top 15% gets paid in banded tiers. Wide, flat curves mean more winners — not just one jackpot.</p></div>
-        <div class="feature"><div class="feature-icon">🎯</div><h3>Bounty System</h3><p>Seven bounty categories reward sharp trading — best Sharpe ratio, biggest comeback, best risk control.</p></div>
-        <div class="feature"><div class="feature-icon">🔄</div><h3>Rebuy Allowed</h3><p>Busted? Buy back in during the first half with a fresh portfolio and another shot at the bigger pool.</p></div>
-        <div class="feature"><div class="feature-icon">💸</div><h3>Instant Payouts</h3><p>Winners get paid fast — crypto in minutes, e-wallets within the hour. No waiting days.</p></div>
     </div>
 </section>
 
@@ -1106,7 +1200,6 @@
     <div class="trust-item"><span class="trust-icon">🔒</span> Entry Fee Is Your Only Cost</div>
     <div class="trust-item"><span class="trust-icon">📊</span> Live Market Data</div>
     <div class="trust-item"><span class="trust-icon">📋</span> Published Payout Structure</div>
-    <div class="trust-item"><span class="trust-icon">⚡</span> Instant Payouts</div>
 </div>
 
 <!-- FAQ -->
@@ -1129,7 +1222,7 @@
         </details>
         <details class="faq-item">
             <summary>What happens if I don't win?</summary>
-            <p>You only ever risk your entry fee, because every trade is simulated. The top 15% of the field cash out, with a minimum of 1.5× your entry. The other 85% walk away with nothing beyond the entry fee they paid — no blown accounts, no surprises.</p>
+            <p>You only ever risk your entry fee, because every trade is simulated. The top 15% of the field cash out, with a minimum of 1.5× your entry. The other 85% walk away with sharper instincts — but no money beyond the entry fee they paid — no blown accounts, no surprises.</p>
         </details>
         <details class="faq-item">
             <summary>How is this different from a prop firm challenge?</summary>
@@ -1150,17 +1243,71 @@
 <section class="final-cta reveal">
     <h2>Ready to prove you've got the edge?</h2>
     <p>Pre-registration is open now. Join the waitlist and we'll notify you the moment competition one opens.</p>
-    <a href="#register" class="hero-cta">Reserve Your Spot →</a>
+    <a href="#register" class="hero-cta" onclick="openWaitlistModal(); return false;">Reserve Your Spot →</a>
 </section>
 
 <!-- FOOTER -->
 <footer>
-    <p style="margin-bottom: 0.5rem;">TriTrader — Simulated Trading Competitions</p>
-    <p>All trades are simulated — nothing beyond your entry fee is ever at stake. Entry fees fund the prize pool. UK-based.</p>
+    <p style="margin-bottom: 0.5rem;">TriTrader —  Trading Competitions</p>
+    <p>All trades are simulated — nothing beyond your entry fee is ever at stake.</p>
     <p style="margin-top: 0.75rem;"><a href="terms.html">Terms</a> &nbsp;·&nbsp; <a href="privacy.html">Privacy</a> &nbsp;·&nbsp; <a href="cookies.html">Cookie Policy</a> &nbsp;·&nbsp; <a href="mailto:admin@softwareops.uk">Contact</a></p>
 </footer>
 
 </div><!-- /content-wrap -->
+
+<!-- WAITLIST MODAL — same card style as the hero form -->
+<div class="modal-overlay" id="waitlist-modal" role="dialog" aria-modal="true" aria-label="Join the waitlist">
+    <div class="hero-form-card modal-card">
+        <button type="button" class="modal-close" aria-label="Close" onclick="closeWaitlistModal()">×</button>
+        <div class="form-header">
+            <h2>Join the Waitlist</h2>
+            <p>Be first in line for competition one.</p>
+        </div>
+
+        <div class="form-error"></div>
+
+        <form onsubmit="handleSubmit(event)">
+            <div class="form-group">
+                <label for="m-email">Email Address *</label>
+                <input type="email" id="m-email" name="email" placeholder="you@example.com" required autocomplete="email">
+            </div>
+            <div class="form-group">
+                <label for="m-tier">Which tier would you enter? *</label>
+                <div class="select-wrapper">
+                    <select id="m-tier" name="tier" required>
+                        <option value="" disabled selected>Select a tier...</option>
+                        <option value="contender">Contender — £100</option>
+                        <option value="elite">Elite — £300</option>
+                        <option value="champion">Champion — £1,000</option>
+                    </select>
+                </div>
+            </div>
+            <!-- Honeypot -->
+            <div class="hp-field" aria-hidden="true">
+                <label for="m-company">Company</label>
+                <input type="text" id="m-company" name="company" tabindex="-1" autocomplete="off">
+            </div>
+            <button type="submit" class="form-submit">Claim My Spot →</button>
+        </form>
+
+        <div class="form-success">
+            <div class="checkmark">✓</div>
+            <h3>You're on the list!</h3>
+            <p>We'll email you the moment the first competition opens.</p>
+
+            <div class="share-block">
+                <p class="share-title">Know other traders who'd want in? Send them your invite.</p>
+                <div class="share-buttons">
+                    <button type="button" class="share-btn x" onclick="shareReferral('x', this)">Share on X</button>
+                    <button type="button" class="share-btn wa" onclick="shareReferral('whatsapp', this)">WhatsApp</button>
+                    <button type="button" class="share-btn copy" onclick="shareReferral('copy', this)">Copy link</button>
+                </div>
+            </div>
+        </div>
+
+        <p class="form-note">No payment required now. We'll notify you before launch.</p>
+    </div>
+</div>
 
 <!-- A/B INDICATOR -->
 <div class="ab-indicator" id="ab-indicator"></div>
@@ -1320,6 +1467,41 @@ const TOP_PRIZE_MULTIPLE = 20; // top prize = 20× the entry fee, for every tier
 const parseFee = (price) => parseInt(String(price).replace(/[^0-9]/g, ''), 10);
 const gbp = (n) => '£' + n.toLocaleString('en-GB');
 
+// The prize structure (hero figure, "Win up to" title, payout table) and the
+// slider all key off ONE number: the selected tier's entry fee for the current
+// variant — the exact figure printed on the matching Stakes Tier card. That is
+// what keeps every number on the page uniform.
+const TIER_ORDER = ['contender', 'elite', 'champion'];
+let currentTier = 'champion';   // prize structure defaults to the headline tier
+
+function renderPrizeStructure(tierKey) {
+    const variant = AB_VARIANTS[currentVariant];
+    if (!variant) return;
+    const entry = parseFee(variant.prices[tierKey]);
+    if (isNaN(entry)) return;
+    const topPrize = entry * TOP_PRIZE_MULTIPLE;
+    const heroEl = document.getElementById('hero-top-prize');
+    if (heroEl) heroEl.textContent = '£' + Math.round(topPrize / 1000) + 'k';
+    const titleEl = document.getElementById('payout-title-prize');
+    if (titleEl) titleEl.textContent = gbp(topPrize);
+    document.querySelectorAll('[data-payout-mult]').forEach(cell => {
+        const mult = parseFloat(cell.getAttribute('data-payout-mult'));
+        if (!isNaN(mult)) cell.textContent = gbp(Math.round(mult * entry));
+    });
+}
+
+// Slider labels mirror the three Stakes Tier entry fees for the current variant.
+function updateStakeSliderLabels() {
+    const variant = AB_VARIANTS[currentVariant];
+    if (!variant) return;
+    document.querySelectorAll('.stake-slider-ticks span').forEach(t => {
+        const tier = TIER_ORDER[parseInt(t.getAttribute('data-idx'), 10)];
+        if (tier && variant.prices[tier]) t.textContent = variant.prices[tier];
+    });
+    const valueEl = document.getElementById('stake-slider-value');
+    if (valueEl && variant.prices[currentTier]) valueEl.textContent = variant.prices[currentTier];
+}
+
 function applyVariant(variantKey) {
     const variant = AB_VARIANTS[variantKey];
     if (!variant) return;
@@ -1333,29 +1515,17 @@ function applyVariant(variantKey) {
             if (!isNaN(entry)) tpEl.textContent = gbp(entry * TOP_PRIZE_MULTIPLE);
         }
     });
-    const select = document.getElementById('tier');
-    if (select) {
+    document.querySelectorAll('select[name="tier"]').forEach(select => {
         Array.from(select.options).forEach(opt => {
             if (variant.tierOptions[opt.value]) opt.textContent = variant.tierOptions[opt.value];
         });
-    }
+    });
 
-    // --- Drive the hero number + payout table off the landed variant's
-    //     Champion entry fee, so every figure on the page reconciles. ---
-    const champEntry = parseFee(variant.prices.champion);
-    if (!isNaN(champEntry)) {
-        const topPrize = champEntry * TOP_PRIZE_MULTIPLE;
-        const heroEl = document.getElementById('hero-top-prize');
-        if (heroEl) heroEl.textContent = '£' + Math.round(topPrize / 1000) + 'k';
-        const titleEl = document.getElementById('payout-title-prize');
-        if (titleEl) titleEl.textContent = gbp(topPrize);
-        document.querySelectorAll('[data-payout-mult]').forEach(cell => {
-            const mult = parseFloat(cell.getAttribute('data-payout-mult'));
-            if (!isNaN(mult)) cell.textContent = gbp(Math.round(mult * champEntry));
-        });
-        const noteEl = document.getElementById('payout-note');
-        if (noteEl) noteEl.textContent = `Figures shown are for the ${variant.prices.champion} Champion tier in a 250-trader Arena (top 38 paid). Every tier uses the same multiples — your prizes scale with the entry fee you pick.`;
-    }
+    // The slider picks which tier the prize structure details; re-render that
+    // table + the slider labels off the SAME entry fees shown on the tier cards,
+    // so the slider, the Stakes Tiers and the payout table can never disagree.
+    updateStakeSliderLabels();
+    renderPrizeStructure(currentTier);
 
     const params = new URLSearchParams(window.location.search);
     if (params.get('ab_debug') === '1') {
@@ -1374,7 +1544,7 @@ function trackEvent(eventName, data) {
     console.log(`[TriTrader Event] ${eventName}`, data);
 }
 
-const currentVariant = getVariant();
+let currentVariant = getVariant();
 applyVariant(currentVariant);
 
 // ==========================================================================
@@ -1408,6 +1578,31 @@ function setConsent(choice) {
 })();
 
 // ==========================================================================
+// ENTRY-FEE SLIDER
+// The three stops are the three Stakes Tiers (Contender / Elite / Champion) for
+// the visitor's assigned variant, labelled with the exact entry fees shown on
+// the tier cards. Moving it re-renders the prize structure for that tier only —
+// it never changes the assigned A/B variant, so the test data stays clean.
+// ==========================================================================
+(function initStakeSlider() {
+    const range = document.getElementById('stake-range');
+    if (!range) return;
+    const idx = TIER_ORDER.indexOf(currentTier);
+    range.value = idx < 0 ? 2 : idx;
+    updateStakeSliderLabels();
+    range.addEventListener('input', () => {
+        currentTier = TIER_ORDER[parseInt(range.value, 10)] || 'champion';
+        renderPrizeStructure(currentTier);
+        updateStakeSliderLabels();
+        trackEvent('prize_tier_previewed', {
+            tier: currentTier,
+            ab_variant: currentVariant,
+            entry_fee: AB_VARIANTS[currentVariant].prices[currentTier]
+        });
+    });
+})();
+
+// ==========================================================================
 // TIER SELECTION
 // ==========================================================================
 function selectTier(tier) {
@@ -1424,25 +1619,30 @@ function validateEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 function handleSubmit(e) {
     e.preventDefault();
-    const errorEl = document.getElementById('form-error');
+    // Scope every lookup to the card this form lives in, so the hero card and
+    // the pop-up modal can share identical markup without ID collisions.
+    const form = e.target;
+    const card = form.closest('.hero-form-card');
+    const errorEl = card.querySelector('.form-error');
+    const successEl = card.querySelector('.form-success');
     errorEl.style.display = 'none';
 
-    const email = document.getElementById('email').value.trim();
-    const tier = document.getElementById('tier').value;
-    const honeypot = document.getElementById('company').value;
+    const email = card.querySelector('input[name="email"]').value.trim();
+    const tier = card.querySelector('select[name="tier"]').value;
+    const honeypot = card.querySelector('input[name="company"]').value;
 
     // Honeypot: a real user never sees or fills this. If it's populated,
     // it's a bot — fake the success state and drop the submission silently.
     if (honeypot) {
-        document.getElementById('registration-form').style.display = 'none';
-        document.getElementById('form-success').style.display = 'block';
+        form.style.display = 'none';
+        successEl.style.display = 'block';
         return;
     }
 
     if (!validateEmail(email)) { errorEl.textContent = 'Please enter a valid email address.'; errorEl.style.display = 'block'; return; }
     if (!tier) { errorEl.textContent = 'Please select a tier.'; errorEl.style.display = 'block'; return; }
 
-    const btn = document.getElementById('submit-btn');
+    const btn = form.querySelector('.form-submit');
     const originalLabel = btn.textContent;
     btn.disabled = true;
     btn.textContent = 'Submitting...';
@@ -1474,8 +1674,8 @@ function handleSubmit(e) {
         }
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         trackEvent('waitlist_signup', { tier, ab_variant: currentVariant });
-        document.getElementById('registration-form').style.display = 'none';
-        document.getElementById('form-success').style.display = 'block';
+        form.style.display = 'none';
+        successEl.style.display = 'block';
     })
     .catch(err => {
         console.error('[TriTrader] Submission failed:', err);
@@ -1493,21 +1693,48 @@ function getReferralUrl() {
     const base = window.location.origin + window.location.pathname;
     return base + '?utm_source=referral&utm_medium=share';
 }
-function shareReferral(channel) {
+function shareReferral(channel, btnEl) {
     const url = getReferralUrl();
-    const msg = "I just joined the TriTrader waitlist — WSOP-style trading competitions across every market. One week, one leaderboard, a real prize pool. Get in early:";
+    const msg = "I just entered the TriTrader Tournament — the WSOP for trading. A one-week competition across every market where the top 15% share the prize pool. Think you can out-trade me?";
     trackEvent('referral_share_clicked', { channel, ab_variant: currentVariant });
     if (channel === 'x') {
         window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(msg) + '&url=' + encodeURIComponent(url), '_blank', 'noopener');
     } else if (channel === 'whatsapp') {
         window.open('https://wa.me/?text=' + encodeURIComponent(msg + ' ' + url), '_blank', 'noopener');
     } else if (channel === 'copy') {
-        const btn = document.getElementById('copy-link-btn');
+        const btn = btnEl || document.getElementById('copy-link-btn');
         const done = () => { if (btn) { btn.textContent = 'Copied ✓'; btn.classList.add('copied'); setTimeout(() => { btn.textContent = 'Copy link'; btn.classList.remove('copied'); }, 2000); } };
         if (navigator.clipboard) { navigator.clipboard.writeText(url).then(done).catch(done); }
         else { const t = document.createElement('textarea'); t.value = url; document.body.appendChild(t); t.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(t); done(); }
     }
 }
+
+// ==========================================================================
+// WAITLIST MODAL (opened by the "Reserve Your Spot" CTAs)
+// ==========================================================================
+function openWaitlistModal() {
+    const modal = document.getElementById('waitlist-modal');
+    if (!modal) return;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    const firstInput = modal.querySelector('input[name="email"]');
+    if (firstInput) setTimeout(() => firstInput.focus(), 60);
+    trackEvent('waitlist_modal_opened', { ab_variant: currentVariant });
+}
+function closeWaitlistModal() {
+    const modal = document.getElementById('waitlist-modal');
+    if (!modal) return;
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+}
+(function initModal() {
+    const modal = document.getElementById('waitlist-modal');
+    if (!modal) return;
+    // Close when clicking the backdrop (but not the card itself)
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeWaitlistModal(); });
+    // Close on Escape
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeWaitlistModal(); });
+})();
 
 // ==========================================================================
 // SCROLL REVEAL ANIMATIONS
