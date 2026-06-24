@@ -1,0 +1,24 @@
+# TriTrader — robots.txt
+# Allow all standard crawlers
+User-agent: *
+Allow: /
+
+# Explicitly welcome AI search crawlers (so we can be cited)
+User-agent: GPTBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+User-agent: Google-Extended
+Allow: /
+
+# Block training-only bulk crawler (optional)
+User-agent: CCBot
+Disallow: /
+
+Sitemap: https://tritrader.uk/sitemap.xml

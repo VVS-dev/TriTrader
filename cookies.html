@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Policy — TriTrader</title>
+    <meta name="robots" content="noindex, follow">
+    <meta name="description" content="What cookies and similar technologies TriTrader uses, and how to manage them.">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060910'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='%2300e6a8' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
+    <style>
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        :root{--bg:#060910;--card:#0f1521;--accent:#00e6a8;--text:#f4f7fb;--text2:#9aa7ba;--muted:#5d6b80;--border:#1a2333}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+        .wrap{max-width:780px;margin:0 auto;padding:3rem 1.5rem 5rem}
+        .back{display:inline-flex;align-items:center;gap:.4rem;color:var(--accent);text-decoration:none;font-size:.9rem;font-weight:600;margin-bottom:2rem}
+        .back:hover{text-decoration:underline}
+        h1{font-size:2.2rem;font-weight:800;letter-spacing:-1px;margin-bottom:.5rem}
+        .updated{color:var(--muted);font-size:.85rem;margin-bottom:2.5rem}
+        h2{font-size:1.25rem;font-weight:700;margin:2.25rem 0 .75rem}
+        p,li{color:var(--text2);font-size:1rem;margin-bottom:.75rem}
+        ul{padding-left:1.4rem;margin-bottom:1rem}
+        a{color:var(--accent)}
+        .note{background:rgba(255,194,51,.08);border:1px solid rgba(255,194,51,.3);border-radius:10px;padding:1rem 1.25rem;font-size:.9rem;color:#ffc233;margin-bottom:2rem}
+        table{width:100%;border-collapse:collapse;margin:1rem 0}
+        th,td{text-align:left;padding:.6rem .75rem;border:1px solid var(--border);font-size:.9rem;color:var(--text2)}
+        th{background:rgba(0,230,168,.05);color:var(--text);font-weight:600}
+        button.manage{background:var(--accent);color:var(--bg);border:none;padding:.7rem 1.3rem;border-radius:9px;font-weight:700;cursor:pointer;font-size:.95rem;margin-top:.5rem}
+        footer{border-top:1px solid var(--border);text-align:center;padding:2rem 1.5rem;color:var(--muted);font-size:.85rem}
+        footer a{color:var(--text2);text-decoration:none}
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <a href="index.html" class="back">← Back to TriTrader</a>
+        <h1>Cookie Policy</h1>
+        <p class="updated">Last updated: 24 June 2026</p>
+
+        <div class="note">⚠️ TEMPLATE — confirm the cookie/storage list below matches what your live site actually sets, and have it reviewed alongside your Privacy Policy.</div>
+
+        <p>This Cookie Policy explains how <strong>SOFTWARE OPS LIMITED</strong> uses cookies and similar technologies (such as browser local storage) on our website. We only use non-essential cookies and analytics <strong>after you accept them</strong> via our cookie banner.</p>
+
+        <h2>1. What we use</h2>
+        <table>
+            <tr><th>Name</th><th>Type</th><th>Purpose</th><th>Needs consent?</th></tr>
+            <tr><td>tt_cookie_consent</td><td>Local storage (essential)</td><td>Remembers your cookie choice</td><td>No</td></tr>
+            <tr><td>ta_ab_variant</td><td>Local storage (essential)</td><td>Keeps your A/B test version consistent between visits</td><td>No</td></tr>
+            <tr><td>PostHog (ph_*)</td><td>Analytics</td><td>Measures page views, clicks and conversions (EU-hosted)</td><td>Yes</td></tr>
+        </table>
+
+        <h2>2. Essential storage</h2>
+        <p>We use a small amount of browser local storage to remember your cookie preference and keep your experience consistent. This is strictly necessary for the site to function and does not require consent.</p>
+
+        <h2>3. Analytics (consent-based)</h2>
+        <p>We use PostHog, a privacy-focused analytics tool hosted in the EU, to understand how visitors use the site so we can improve it. PostHog only runs if you click "Accept" on our cookie banner. If you decline, no analytics cookies are set and no analytics events are sent.</p>
+
+        <h2>4. Managing your choice</h2>
+        <p>You can change your decision at any time by clicking the button below, or by clearing this site's data in your browser settings.</p>
+        <button class="manage" onclick="try{localStorage.removeItem('tt_cookie_consent');}catch(e){}; location.href='index.html';">Change my cookie preferences</button>
+
+        <h2>5. Changes</h2>
+        <p>We may update this policy as our use of cookies changes. The "last updated" date reflects the latest version.</p>
+    </div>
+    <footer>
+        <p>TriTrader — Simulated Trading Competitions · <a href="index.html">Home</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></p>
+    </footer>
+</body>
+</html>

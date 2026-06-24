@@ -1,0 +1,26 @@
+# TriTrader
+
+> TriTrader runs WSOP-style trading competitions. Traders across every major asset class — forex, indices, commodities, crypto and stocks — compete head-to-head in one-week tournaments on simulated trades priced against real-time market data. Pay one fixed entry fee (your only risk), compete for a week, and the top 15% of the field share a prize pool funded entirely by entry fees.
+
+## What it is
+- Format: one-week, skill-based trading competition in a simulated environment (no real positions, no real capital at risk beyond the entry fee).
+- Markets: forex, indices, commodities, crypto, stocks — all in a single competition, priced on real-time data.
+- Payouts: top 15% of the field cash. Minimum paid place returns 1.1× the entry fee; the top prize is 20× the entry fee. The other 85% do not get paid.
+- Prize pool: funded entirely by entry fees (poker-rake model). ~45% of every entry goes back to players (40% leaderboard pool + 5% bounty pool).
+- Bounties: a separate pool rewards the week's sharpest trades (best risk-adjusted return, smallest drawdown, biggest comeback, and more) — winnable alongside a leaderboard prize.
+- Stakes tiers: Contender, Elite, Champion — higher buy-in, bigger prizes. Same payout structure at every tier.
+
+## How it differs from prop firm challenges (FTMO, etc.)
+- One week, not months. No evaluation rules to follow. Rewards pure performance, not rule-compliance. Real prize money, not a funded account.
+
+## Current status
+- Pre-launch. Building a waitlist ahead of the first competition. Joining the waitlist is free, requires only an email, and carries no obligation to pay.
+
+## Key pages
+- Home / waitlist: /
+- Privacy Policy: /privacy.html
+- Terms & Conditions: /terms.html
+- Cookie Policy: /cookies.html
+
+## Company
+- SOFTWARE OPS LIMITED, UK-based. Contact: admin@softwareops.uk
