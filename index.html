@@ -1559,6 +1559,7 @@ function enableAnalytics() {
     if (analyticsEnabled || typeof posthog === 'undefined') return;
     analyticsEnabled = true;
     posthog.opt_in_capturing();
+    posthog.startSessionRecording();
     posthog.register({ ab_variant: currentVariant, ab_variant_name: AB_VARIANTS[currentVariant].name });
     posthog.capture('$pageview');
 }
