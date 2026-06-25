@@ -69,6 +69,9 @@
     </script>
     <!-- ===== end PostHog ============================================ -->
 
+    <!-- Cloudflare Turnstile — server-verified anti-abuse for the waitlist form -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -376,6 +379,7 @@
             height: 1px;
             overflow: hidden;
         }
+        .cf-turnstile { margin: 0 0 1rem; min-height: 65px; }
         .form-success {
             display: none;
             text-align: center;
@@ -1019,6 +1023,8 @@
                 <label for="company">Company</label>
                 <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
             </div>
+            <!-- Cloudflare Turnstile — replace data-sitekey with your real site key -->
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAADqz6WKxDAeRRMj3" data-theme="dark" data-size="flexible"></div>
             <button type="submit" class="form-submit" id="submit-btn">Claim My Spot →</button>
         </form>
 
@@ -1284,6 +1290,8 @@
                 <label for="m-company">Company</label>
                 <input type="text" id="m-company" name="company" tabindex="-1" autocomplete="off">
             </div>
+            <!-- Cloudflare Turnstile — replace data-sitekey with your real site key -->
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAADqz6WKxDAeRRMj3" data-theme="dark" data-size="flexible"></div>
             <button type="submit" class="form-submit">Claim My Spot →</button>
         </form>
 
@@ -1324,6 +1332,11 @@
 // ==========================================================================
 const SUPABASE_URL = 'https://zjihfzgkxplpjzcfzmga.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpqaWhmemdreHBscGp6Y2Z6bWdhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwMTQ3MzUsImV4cCI6MjA5NzU5MDczNX0.oq1ufu3lv3c0rsgn9tL8F7oi6gdOapXbGeT4Lgirn38';
+
+// Signups now go through this Turnstile-verified Edge Function instead of a
+// direct table insert, so the public anon key can no longer be used to spam the
+// waitlist or trigger confirmation emails.
+const SIGNUP_FN_URL = `${SUPABASE_URL}/functions/v1/waitlist-signup`;
 
 // ==========================================================================
 // ANIMATED CANDLESTICK BACKGROUND
@@ -1648,34 +1661,46 @@ function handleSubmit(e) {
     if (!validateEmail(email)) { errorEl.textContent = 'Please enter a valid email address.'; errorEl.style.display = 'block'; return; }
     if (!tier) { errorEl.textContent = 'Please select a tier.'; errorEl.style.display = 'block'; return; }
 
+    // Cloudflare Turnstile injects this hidden field once the challenge passes.
+    // No token = no proof this is a real browser → don't submit.
+    const tokenEl = card.querySelector('[name="cf-turnstile-response"]');
+    const token = tokenEl ? tokenEl.value : '';
+    if (!token) {
+        errorEl.textContent = 'Please complete the verification check, then try again.';
+        errorEl.style.display = 'block';
+        return;
+    }
+
     const btn = form.querySelector('.form-submit');
     const originalLabel = btn.textContent;
     btn.disabled = true;
     btn.textContent = 'Submitting...';
 
-    const row = {
+    const payload = {
         email, tier,
+        company: honeypot,            // server re-checks the honeypot too
+        turnstile_token: token,
         ab_variant: currentVariant,
         ab_variant_name: AB_VARIANTS[currentVariant].name,
         referrer: document.referrer || 'direct',
         page_url: window.location.href
     };
 
-    fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
+    fetch(SIGNUP_FN_URL, {
         method: 'POST',
         headers: {
             'apikey': SUPABASE_ANON_KEY,
             'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-            'Content-Type': 'application/json',
-            'Prefer': 'return=minimal'
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify(row)
+        body: JSON.stringify(payload)
     })
     .then(res => {
         if (res.status === 409) {
             errorEl.textContent = 'This email is already on the waitlist!';
             errorEl.style.display = 'block';
             btn.disabled = false; btn.textContent = originalLabel;
+            resetTurnstile(card);
             return;
         }
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -1688,7 +1713,17 @@ function handleSubmit(e) {
         errorEl.textContent = 'Something went wrong. Please try again.';
         errorEl.style.display = 'block';
         btn.disabled = false; btn.textContent = originalLabel;
+        resetTurnstile(card);   // Turnstile tokens are single-use — get a fresh one
     });
+}
+
+// Reset the Turnstile widget inside a form card so the next attempt gets a
+// fresh, single-use token (a used or expired token can't be submitted again).
+function resetTurnstile(card) {
+    try {
+        const w = card.querySelector('.cf-turnstile');
+        if (window.turnstile && w) window.turnstile.reset(w);
+    } catch (e) { /* no-op */ }
 }
 
 // ==========================================================================
