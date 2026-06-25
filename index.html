@@ -184,6 +184,7 @@
         /* --- SPLIT-SCREEN HERO --- */
         .hero {
             min-height: 100vh;
+            min-height: 100svh; /* dvh/svh: respect the iOS Safari address bar */
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
             align-items: center;
@@ -227,9 +228,9 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .hero-left > p {
+        .hero-intro > p {
             font-size: 1.15rem;
-            color: var(--text-secondary);
+            color: var(--text-primary);
             max-width: 520px;
             margin-bottom: 2rem;
         }
@@ -269,7 +270,7 @@
         }
         .hero-stat .label {
             font-size: 0.78rem;
-            color: var(--text-muted);
+            color: var(--text-primary);
             margin-top: 0.3rem;
         }
 
@@ -363,7 +364,7 @@
         .form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
         .form-note {
             font-size: 0.75rem;
-            color: var(--text-muted);
+            color: var(--text-primary);
             margin-top: 0.9rem;
             text-align: center;
         }
@@ -464,7 +465,7 @@
             letter-spacing: -0.5px;
         }
         .section-subtitle {
-            color: var(--text-secondary);
+            color: var(--text-primary);
             font-size: 1.1rem;
             max-width: 620px;
             margin-bottom: 3rem;
@@ -630,7 +631,7 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: var(--text-muted);
+            color: var(--text-primary);
         }
         .stake-slider-value {
             font-size: 1.05rem;
@@ -673,7 +674,7 @@
             margin-top: 0.7rem;
             font-size: 0.78rem;
             font-weight: 600;
-            color: var(--text-muted);
+            color: var(--text-primary);
         }
         .stake-slider-ticks span { flex: 1; text-align: center; }
         .stake-slider-ticks span:first-child { text-align: left; }
@@ -692,7 +693,7 @@
         .payout-table th {
             padding: 1rem 1.5rem; text-align: left;
             font-size: 0.8rem; font-weight: 700;
-            color: var(--text-muted);
+            color: var(--text-primary);
             text-transform: uppercase; letter-spacing: 0.5px;
         }
         .payout-table td { padding: 0.85rem 1.5rem; border-top: 1px solid var(--border); font-size: 0.95rem; }
@@ -703,30 +704,6 @@
         .place-badge.bronze { color: var(--bronze); }
         .multiplier { color: var(--accent); font-weight: 700; }
         .big-prize { color: var(--accent); font-weight: 800; font-size: 1.05rem; }
-
-        /* --- PRIZE / REVENUE CALLOUT --- */
-        .prize-callout {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            background: linear-gradient(135deg, rgba(0,230,168,0.10), rgba(0,230,168,0.02));
-            border: 1px solid rgba(0, 230, 168, 0.3);
-            border-radius: 16px;
-            padding: 1.75rem 2rem;
-            margin-bottom: 1.5rem;
-        }
-        .prize-callout-num {
-            font-size: 3.2rem;
-            font-weight: 800;
-            color: var(--accent);
-            line-height: 1;
-            letter-spacing: -2px;
-        }
-        .prize-callout-text { font-size: 1rem; color: var(--text-secondary); }
-        .prize-callout-text strong { color: var(--text-primary); font-weight: 700; }
-        @media (max-width: 600px) {
-            .prize-callout { flex-direction: column; text-align: center; gap: 0.75rem; padding: 1.5rem; }
-        }
 
         /* --- BOUNTIES --- */
         .bounties-grid {
@@ -922,17 +899,28 @@
 
         /* --- RESPONSIVE --- */
         @media (max-width: 920px) {
-            .hero { grid-template-columns: 1fr; gap: 2.5rem; padding-top: 6rem; }
-            .hero-left { order: 2; }
-            .hero-form-card { order: 1; }
+            .hero {
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+                padding-top: 6rem;
+            }
+            /* Flatten hero-left so its children reorder around the form on mobile:
+               bullet points + stats first, then the form, then the headline block. */
+            .hero-left { display: contents; }
+            .hero-intro     { order: 1; }
+            .hero-form-card { order: 2; }
+            .hero-points    { order: 3; margin-bottom: 0; }
+            .hero-stats     { order: 4; }
         }
         @media (max-width: 768px) {
             nav { padding: 0 1rem; }
-            .logo { font-size: 1.2rem; }
-            .nav-cta { padding: 0.5rem 1rem; font-size: 0.8rem; }
+            .nav-inner { justify-content: space-between; }
+            .logo { font-size: 1.2rem; position: static; left: auto; transform: none; }
+            .nav-cta { padding: 0.5rem 0.85rem; font-size: 0.8rem; min-height: 44px; display: inline-flex; align-items: center; }
             .hero { padding: 5.5rem 1.25rem 3rem; }
             .hero-form-card { padding: 1.5rem; }
-            .hero-left > p { font-size: 1.05rem; }
+            .hero-intro > p { font-size: 1.05rem; margin-bottom: 0; }
             .hero-points li { font-size: 0.92rem; }
             .hero-stats { gap: 1.5rem; }
             .hero-stat .num { font-size: 1.5rem; }
@@ -944,13 +932,19 @@
             .trust-item { font-size: 0.85rem; }
             section.block { padding: 3.5rem 1.25rem; }
             .final-cta { padding: 3.5rem 1.25rem; }
+            /* Touch targets ≥ 44px (Apple HIG) */
+            .share-btn, .cookie-btn { min-height: 44px; }
+            .stake-slider input[type="range"]::-webkit-slider-thumb { width: 28px; height: 28px; }
+            .stake-slider input[type="range"]::-moz-range-thumb { width: 28px; height: 28px; }
+            /* keep the fixed cookie banner from covering the final CTA */
+            footer { padding-bottom: 6rem; }
         }
         @media (max-width: 600px) {
             .hero h1 { letter-spacing: -1px; }
-            .prize-callout-num { font-size: 2.6rem; }
-            .prize-callout-text { font-size: 0.92rem; }
+            .nav-cta { padding: 0.5rem 0.75rem; font-size: 0.75rem; }
             .section-subtitle { font-size: 1rem; }
-            .hero-stats { gap: 1.25rem; width: 100%; }
+            .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 1.25rem; width: 100%; }
+            .hero-stat .num { font-size: 1.4rem; }
             .hero-form-card .form-header h2 { font-size: 1.35rem; }
             .form-group input, .form-group select { font-size: 16px; } /* prevents iOS zoom-on-focus */
             .payout-table th:nth-child(2), .payout-table td:nth-child(2) { display: none; } /* hide Winners col on narrow screens */
@@ -977,8 +971,11 @@
 <!-- SPLIT-SCREEN HERO -->
 <section class="hero">
     <div class="hero-left">
-        <div class="badge"><span class="dot"></span>Pre-Registration Now Open</div>
-        <h1>Your Edge vs 250 Rivals.<br><span class="highlight">Let your PnL do the talking.</span></h1>        <p>Like the WSOP, but for trading. Pay one fixed entry fee, and trade for a week in any major market. Top 15% of traders share the prize pool.</p>
+        <div class="hero-intro">
+            <div class="badge"><span class="dot"></span>Pre-Registration Now Open</div>
+            <h1>Your Edge vs 250 Rivals. <span class="highlight">Let your PnL do the talking.</span></h1>
+            <p>Like the WSOP, but for trading — the top 15% share the prize pool.</p>
+        </div>
         <ul class="hero-points">
             <li><span class="tick">✓</span> <span><strong>Every market, one competition.</strong> Forex, indices, commodities, crypto &amp; stocks.</span></li>
             <li><span class="tick">✓</span> <span><strong>Pure skill, level start.</strong> Everyone starts equal — top 15% by PnL get paid.</span></li>
@@ -1078,7 +1075,7 @@
             <button class="tier-cta" onclick="selectTier('champion')">Select Tier</button>
         </div>
     </div>
-    <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1.5rem; text-align: center;">Top-prize figures are illustrative and grow with the size of the field. Every tier uses the same WSOP-style payout structure.</p>
+    <p style="color: var(--text-primary); font-size: 0.85rem; margin-top: 1.5rem; text-align: center;">Top-prize figures are illustrative and grow with the size of the field. Every tier uses the same WSOP-style payout structure.</p>
 </section>
 
 <!-- PAYOUT TABLE -->
@@ -1163,7 +1160,7 @@
             </div>
         </div>
     </div>
-    <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1.5rem; text-align: center;">Example amounts assume a £500 entry fee.</p>
+    <p style="color: var(--text-primary); font-size: 0.85rem; margin-top: 1.5rem; text-align: center;">Example amounts assume a £500 entry fee.</p>
 </section>
 
 <!-- HOW IT WORKS -->
@@ -1343,8 +1340,11 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
     const GREEN_GLOW = 'rgba(0, 240, 176, 0.9)';
     const RED_GLOW = 'rgba(255, 70, 105, 0.85)';
 
+    let isMobile = window.matchMedia('(max-width: 768px)').matches;
+
     function resize() {
         dpr = window.devicePixelRatio || 1;
+        isMobile = window.matchMedia('(max-width: 768px)').matches;
         width = window.innerWidth;
         height = window.innerHeight;
         canvas.width = width * dpr;
@@ -1354,8 +1354,6 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         initCandles();
     }
-
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
     function initCandles() {
         candleWidth = isMobile ? 8 : 14;
@@ -1422,7 +1420,14 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
         requestAnimationFrame(draw);
     }
 
-    window.addEventListener('resize', resize);
+    let lastW = window.innerWidth;
+    window.addEventListener('resize', () => {
+        // iOS fires resize on every address-bar show/hide (height-only change);
+        // only rebuild the candles when the width actually changes.
+        if (window.innerWidth === lastW) return;
+        lastW = window.innerWidth;
+        resize();
+    });
     resize();
     draw();
 })();
