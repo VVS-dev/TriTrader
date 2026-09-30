@@ -4,17 +4,16 @@
 <meta charset="UTF-8">
 <title>TriTrader OG Image (1200×630)</title>
 <!--
-  HOW TO TURN THIS INTO og-image.png
-  1. Open this file in Chrome.
-  2. Right-click the card → "Inspect", or just take a screenshot of the card.
-     Easiest precise export: open DevTools (Cmd+Opt+I) → Cmd+Shift+P →
-     type "Capture node screenshot" → click it with the .og element selected.
-  3. Save the result as  og-image.png  in this  code/  folder.
-  The card below is exactly 1200x630px.
+  Source for og-image.png (the social share card for tritrader.uk).
+  To re-export: headless Chrome/Brave with a 1200x630 window, e.g.
+    "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser" --headless \
+      --screenshot=og-image.png --window-size=1200,630 --hide-scrollbars og-image.html
+  Copy rules (platform docs/06 §6): lead with the sport, no money headlines,
+  and none of the banned words in docs/06 §2.
 -->
 <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #2a2a2a; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif; }
+    body { background: #060910; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif; }
     .og {
         width: 1200px; height: 630px;
         position: relative; overflow: hidden;
@@ -23,51 +22,44 @@
             radial-gradient(ellipse at 15% 90%, rgba(0,120,220,0.10) 0%, transparent 50%),
             #060910;
         color: #f4f7fb;
-        display: flex; flex-direction: column; justify-content: center;
-        padding: 80px 90px;
+        padding: 70px 90px;
     }
-    /* faux candlestick strip across the bottom */
-    .candles { position: absolute; bottom: 0; left: 0; right: 0; height: 220px; display: flex; align-items: flex-end; gap: 14px; padding: 0 40px 40px; opacity: 0.5; }
-    .candle { width: 16px; border-radius: 2px; }
-    .wick { width: 2px; margin: 0 auto; }
+    .candles { position: absolute; bottom: 0; left: 0; right: 0; height: 240px; display: flex; align-items: flex-end; gap: 12px; padding: 0 30px 30px; opacity: 0.35; }
+    .brand { display: flex; align-items: center; gap: 12px; font-size: 36px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 56px; position: relative; z-index: 2; }
+    .brand .pulse { width: 12px; height: 12px; border-radius: 50%; background: #00e6a8; box-shadow: 0 0 16px rgba(0,230,168,0.9); }
+    .brand .g { color: #00e6a8; }
+    h1 { font-size: 84px; font-weight: 800; line-height: 1.02; letter-spacing: -2.5px; position: relative; z-index: 2; }
+    h1 .hl { background: linear-gradient(135deg, #00e6a8, #2dd4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .tag { font-size: 34px; font-weight: 700; margin-top: 22px; position: relative; z-index: 2; }
     .badge {
         display: inline-flex; align-items: center; gap: 10px;
         background: rgba(0,230,168,0.12); border: 1px solid rgba(0,230,168,0.35);
-        color: #00e6a8; font-size: 20px; font-weight: 600; letter-spacing: 1px;
+        color: #00e6a8; font-size: 22px; font-weight: 700; letter-spacing: 1px;
         text-transform: uppercase; padding: 10px 22px; border-radius: 100px;
-        width: fit-content; margin-bottom: 34px; position: relative; z-index: 2;
+        margin-top: 36px; position: relative; z-index: 2;
     }
     .dot { width: 10px; height: 10px; border-radius: 50%; background: #00e6a8; }
-    h1 { font-size: 76px; font-weight: 800; line-height: 1.04; letter-spacing: -2px; position: relative; z-index: 2; }
-    h1 .hl { background: linear-gradient(135deg, #00e6a8, #2dd4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    p.sub { font-size: 30px; color: #9aa7ba; margin-top: 26px; max-width: 880px; position: relative; z-index: 2; }
-    .brand { position: absolute; top: 60px; right: 90px; display: flex; align-items: center; gap: 12px; font-size: 34px; font-weight: 800; letter-spacing: -0.5px; z-index: 2; }
-    .brand .pulse { width: 12px; height: 12px; border-radius: 50%; background: #00e6a8; box-shadow: 0 0 16px rgba(0,230,168,0.9); }
-    .brand .g { color: #00e6a8; }
 </style>
 </head>
 <body>
 <div class="og">
-    <div class="brand"><span class="pulse"></span>Tri<span class="g">Trader</span></div>
     <div class="candles" id="candles"></div>
-    <div class="badge"><span class="dot"></span>The WSOP for Trading</div>
-    <h1>One week. Every market.<br><span class="hl">Compete for the leaderboard.</span></h1>
-    <p class="sub">Skill-based trading competitions on real-time data. Top 15% share a prize pool funded by entry fees. Join the waitlist.</p>
+    <div class="brand">Tri<span class="pulse"></span><span class="g">Trader</span></div>
+    <h1>The championship<br><span class="hl">for traders.</span></h1>
+    <p class="tag">One week. Every market. Verified results.</p>
+    <div class="badge"><span class="dot"></span>Beta Championship · 23–29 Nov 2026</div>
 </div>
 <script>
-    // generate a row of green/red candles for texture
+    // Row of green/red candles for texture (seeded so re-exports look the same)
+    let seed = 7;
+    const rand = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
     const c = document.getElementById('candles');
-    const GREEN = '#00e6a8', RED = '#ff4d6d';
     for (let i = 0; i < 60; i++) {
-        const up = Math.random() > 0.45;
-        const col = up ? GREEN : RED;
-        const h = 30 + Math.random() * 150;
-        const wickH = h + 20 + Math.random() * 40;
-        const wrap = document.createElement('div');
-        wrap.style.display = 'flex'; wrap.style.flexDirection = 'column'; wrap.style.alignItems = 'center'; wrap.style.justifyContent = 'flex-end'; wrap.style.height = '180px';
-        const wick = document.createElement('div'); wick.className = 'wick'; wick.style.height = wickH + 'px'; wick.style.background = col; wick.style.opacity = '0.7'; wick.style.marginBottom = '-' + (wickH - h/2) + 'px';
-        const body = document.createElement('div'); body.className = 'candle'; body.style.height = h + 'px'; body.style.background = col;
-        wrap.appendChild(wick); wrap.appendChild(body); c.appendChild(wrap);
+        const col = rand() > 0.45 ? '#00e6a8' : '#ff4d6d';
+        const h = 30 + rand() * 150;
+        const body = document.createElement('div');
+        body.style.cssText = `width:16px;height:${h}px;background:${col};border-radius:2px;flex:none`;
+        c.appendChild(body);
     }
 </script>
 </body>

@@ -1,26 +1,43 @@
 # TriTrader
 
-> TriTrader runs WSOP-style trading competitions. Traders across every major asset class — forex, indices, commodities, crypto and stocks — compete head-to-head in one-week tournaments on simulated trades priced against real-time market data. Pay one fixed entry fee (your only risk), compete for a week, and the top 15% of the field share a prize pool funded entirely by entry fees.
+> TriTrader runs week-long trading competitions of skill. Every entry gets a simulated $80,000 account and trades 86 instruments (FX, indices, commodities, US stocks and crypto) against live prices. Traders are ranked by return %, and fixed prizes, set in advance and paid by TriTrader, go to the top-ranked traders. No real trades are placed.
 
-## What it is
-- Format: one-week, skill-based trading competition in a simulated environment (no real positions, no real capital at risk beyond the entry fee).
-- Markets: forex, indices, commodities, crypto, stocks — all in a single competition, priced on real-time data.
-- Payouts: top 15% of the field cash. Minimum paid place returns 1.1× the entry fee; the top prize is 20× the entry fee. The other 85% do not get paid.
-- Prize pool: funded entirely by entry fees (poker-rake model). ~45% of every entry goes back to players (40% leaderboard pool + 5% bounty pool).
-- Bounties: a separate pool rewards the week's sharpest trades (best risk-adjusted return, smallest drawdown, biggest comeback, and more) — winnable alongside a leaderboard prize.
-- Stakes tiers: Contender, Elite, Champion — higher buy-in, bigger prizes. Same payout structure at every tier.
+## Beta Championship
+- Dates: Monday 23 November 2026 00:01 to Sunday 29 November 2026 23:59, UK time.
+- Entry fee: £100 per entry.
+- Starting balance: $80,000 simulated, per entry.
+- Leverage: chosen at entry from 1:1, 1:10, 1:30, 1:50, 1:100 (default), 1:200 or 1:500; fixed for that entry.
+- Re-entry: a blown account can re-enter up to twice (£100 each) until Thursday 17:00 UK. Only the trader's best entry is ranked.
+- Prizes: £3,500 across 15 awards, paid in full whatever the number of entries and never split.
+  - Place prizes (£2,950): 1st £1,000, 2nd £500, 3rd £300, 4th £200, 5th £200, 6th to 10th £150 each.
+  - Bonus prizes (£550): Sharpest Trader £150, Best Comeback £150, Steady Hand £100, Best Risk Control £100, Most Active £50.
+- Ties: the trader who reached the tied return first ranks higher.
 
-## How it differs from prop firm challenges (FTMO, etc.)
-- One week, not months. No evaluation rules to follow. Rewards pure performance, not rule-compliance. Real prize money, not a funded account.
+## Rules in brief
+- All trading is simulated. Simulated balances have no cash value. The most a trader can lose is the entry fees they pay.
+- Orders: market, limit, stop and stop-limit, with take-profit, stop-loss, trailing stops and hedging. Costs are spread only.
+- Margin call at 100% margin level; automatic stop-out at 50%.
+- Eligibility: 18+, identity-verified, one person one account, any country except those under UK sanctions.
+- Fair play: automated trading is banned; every order waits a random 100–300 ms and fills on the next live price; every trade is replayable; prize winners are reviewed before payout.
+- Public leaderboard refreshes every 30 seconds; open positions are shown 15 minutes delayed, under handles only.
+- Prizes are paid by bank transfer to an account in the winner's verified name.
+- Nothing on TriTrader is investment advice.
+
+## Instruments (86)
+- FX (20): majors, crosses and exotics.
+- Indices (8): US 500, US Tech 100, US 30, Germany 40, UK 100, Japan 225, Hong Kong 50, Korea 200.
+- Commodities (8): gold, silver, platinum, palladium, copper, WTI crude, Brent crude, natural gas.
+- US stocks (25), regular session only.
+- Crypto (25), 24/7.
 
 ## Current status
-- Pre-launch. Building a waitlist ahead of the first competition. Joining the waitlist is free, requires only an email, and carries no obligation to pay.
+- Pre-launch. The waitlist is open; joining is free, needs only an email, and carries no obligation to pay.
 
 ## Key pages
-- Home / waitlist: /
-- Privacy Policy: /privacy.html
-- Terms & Conditions: /terms.html
-- Cookie Policy: /cookies.html
+- Home / waitlist: https://tritrader.uk/
+- Privacy notice: https://tritrader.uk/privacy.html
+- Terms: https://tritrader.uk/terms.html
+- Cookie policy: https://tritrader.uk/cookies.html
 
 ## Company
-- SOFTWARE OPS LIMITED, UK-based. Contact: admin@softwareops.uk
+- Software Ops Limited (trading as TriTrader), registered in England and Wales, company number 16971335. Contact: admin@softwareops.uk
